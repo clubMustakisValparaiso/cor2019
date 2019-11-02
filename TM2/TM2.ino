@@ -45,26 +45,21 @@ void setup() {
 
 
 void loop() {
-  Serial.print(pal.readColor(DER));
-  Serial.print(" ");
-  Serial.print(pal.readColor(IZ));
-  delay(300);
-}
 /*
-    Serial.print(analogRead(0));
-      Serial.print(" ");
-      Serial.print(analogRead(1));
-      Serial.print(" ");
-      Serial.print(analogRead(2));
-      Serial.print(" ");
-      Serial.print(analogRead(3));
-      Serial.print(" ");
-      Serial.print(analogRead(6));
-      Serial.print(" ");
-      Serial.println(analogRead(7));
-      delay(300);
-  boton();
-
+  Serial.print(analogRead(0));
+     Serial.print(" ");
+     Serial.print(analogRead(1));
+     Serial.print(" ");
+     Serial.print(analogRead(2));
+     Serial.print(" ");
+     Serial.print(analogRead(3));
+     Serial.print(" ");
+     Serial.print(analogRead(6));
+     Serial.print(" ");
+     Serial.println(analogRead(7));
+     
+ 
+*/
   if (analogRead(0) > 300 && analogRead(1) > 300 && analogRead(2) > 300 && analogRead(3) > 300 && analogRead(6) > 300 && analogRead(7) > 300) {
     mover(0, 0);
     delay(1500);
@@ -77,37 +72,42 @@ void loop() {
     color der = pal.readColor(DER);
     color izq = pal.readColor(IZ);
 
-    if (der == RED && izq == RED) {
+    if (der == GREEN && izq == GREEN) {
       Serial.println("DAR VUELTA");
       mover(-200, 200);
-      delay(1000);
+      delay(2000);
     }
-
+    else {
+      mover(0, 0);
+    }
+  }
+  
     else if (der == RED) {
-      Serial.println("Girar hacia derecha");
-      mover(200, -200);
-      delay(1000);
+     Serial.println("Girar hacia derecha");
+     mover(200, -200);
+     delay(1000);
     }
 
     else if (izq == RED) {
-      Serial.println("Girar hacia Izquierda");
-      mover(-200, 200);
-      delay(1000);
+     Serial.println("Girar hacia Izquierda");
+     mover(-200, 200);
+     delay(1000);
     }
-  }
-  else if (digitalRead(12) == 1 && analogRead(0) > 300) {
+    }
+    else if (digitalRead(12) == 1 && analogRead(0) > 300) {
     Serial.println("Semi interseccion izq");
     mover(0, 0);
     delay(500);
-  }
-  else if (digitalRead(13) == 1 && analogRead(7) > 300) {
+    }
+    else if (digitalRead(13) == 1 && analogRead(7) > 300) {
     Serial.println("Semi interseccion der");
     mover(0, 0);
     delay(500);
-  }
+    }
   int error = 4 * analogRead(0) + 3 * analogRead(1) + 1 * analogRead(2) + -1 * analogRead(3) + -3 * analogRead(6) + -4 * analogRead(7);
   int dif_error = error - last_error;
   last_error = error;
   mover(p_base + int(kp * error) + int(dif_error * kd) , p_base - int(kp * error) - int(dif_error * kd));
 
-  }
+
+}

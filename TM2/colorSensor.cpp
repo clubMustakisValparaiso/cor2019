@@ -66,21 +66,32 @@ color ColorSensor::readColor(side side_)
   switch (side_)
   {
     case DER: {
-        if (rojo > 0.3) {
+        if (rojo > 0.8 && verde > 0.7) {
           Serial.println("rojo der");
           delay(500);
           return RED;
         }
 
+        if (verde > 0.5) {
+          Serial.println("verde der");
+          delay(500);
+          return GREEN;
+        }
 
         break;
       }
     case IZ:
       {
-        if (rojo > 0.35) {
-          Serial.println("rojo iz");
+        if (rojo > 0.7 && verde > 0.55) {
+          Serial.println("rojo izq");
           delay(500);
           return RED;
+        }
+
+        if (verde > 0.35) {
+          Serial.println("verde izq");
+          delay(500);
+          return GREEN;
         }
         break;
       }
